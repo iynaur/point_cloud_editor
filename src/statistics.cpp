@@ -37,7 +37,7 @@
 /// @details The implementation of the class Statistics
 /// @author Yue Li and Matthew Hielsberg
 
-#include <pcl/apps/point_cloud_editor/statistics.h>
+#include <statistics.h>
 
 std::vector<Statistics*> Statistics::stat_vec_;
 

@@ -37,9 +37,9 @@
 /// @details the implementation of Select2DTool class.
 /// @author  Yue Li and Matthew Hielsberg
 
-#include <pcl/apps/point_cloud_editor/select2DTool.h>
-#include <pcl/apps/point_cloud_editor/cloud.h>
-#include <pcl/apps/point_cloud_editor/selection.h>
+#include <select2DTool.h>
+#include <cloud.h>
+#include <selection.h>
 
 const float Select2DTool::DEFAULT_TOOL_DISPLAY_SIZE_ = 2.0f;
 

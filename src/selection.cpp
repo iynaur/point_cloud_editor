@@ -39,9 +39,9 @@
 /// @author  Yue Li and Matthew Hielsberg
 
 #include <algorithm>
-#include <pcl/apps/point_cloud_editor/selection.h>
-#include <pcl/apps/point_cloud_editor/cloud.h>
-#include <pcl/apps/point_cloud_editor/common.h>
+#include <selection.h>
+#include <cloud.h>
+#include <common.h>
 
 Selection&
 Selection::operator= (const Selection& selection)

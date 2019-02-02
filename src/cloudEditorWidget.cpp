@@ -53,22 +53,22 @@
 
 #include <pcl/filters/filter.h>
 #include <pcl/io/pcd_io.h>
-#include <pcl/apps/point_cloud_editor/cloudEditorWidget.h>
-#include <pcl/apps/point_cloud_editor/common.h>
-#include <pcl/apps/point_cloud_editor/cloud.h>
-#include <pcl/apps/point_cloud_editor/cloudTransformTool.h>
-#include <pcl/apps/point_cloud_editor/selectionTransformTool.h>
-#include <pcl/apps/point_cloud_editor/selection.h>
-#include <pcl/apps/point_cloud_editor/select1DTool.h>
-#include <pcl/apps/point_cloud_editor/select2DTool.h>
-//#include <pcl/apps/point_cloud_editor/select3DTool.h>
-#include <pcl/apps/point_cloud_editor/copyBuffer.h>
-#include <pcl/apps/point_cloud_editor/copyCommand.h>
-#include <pcl/apps/point_cloud_editor/pasteCommand.h>
-#include <pcl/apps/point_cloud_editor/deleteCommand.h>
-#include <pcl/apps/point_cloud_editor/denoiseCommand.h>
-#include <pcl/apps/point_cloud_editor/cutCommand.h>
-#include <pcl/apps/point_cloud_editor/mainWindow.h>
+#include <cloudEditorWidget.h>
+#include <common.h>
+#include <cloud.h>
+#include <cloudTransformTool.h>
+#include <selectionTransformTool.h>
+#include <selection.h>
+#include <select1DTool.h>
+#include <select2DTool.h>
+//#include <select3DTool.h>
+#include <copyBuffer.h>
+#include <copyCommand.h>
+#include <pasteCommand.h>
+#include <deleteCommand.h>
+#include <denoiseCommand.h>
+#include <cutCommand.h>
+#include <mainWindow.h>
 
 CloudEditorWidget::CloudEditorWidget (QWidget *parent)
   : QGLWidget(QGLFormat(QGL::DoubleBuffer | QGL::DepthBuffer |

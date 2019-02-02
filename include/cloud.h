@@ -42,8 +42,8 @@
 #pragma once
 
 #include <QtGui/QColor>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
-#include <pcl/apps/point_cloud_editor/statistics.h>
+#include <localTypes.h>
+#include <statistics.h>
 #ifdef OPENGL_IS_A_FRAMEWORK
 # include <OpenGL/gl.h>
 # include <OpenGL/glu.h>

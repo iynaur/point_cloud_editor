@@ -39,11 +39,11 @@
 
 #include <algorithm>
 #include <qgl.h>
-#include <pcl/apps/point_cloud_editor/cloud.h>
-#include <pcl/apps/point_cloud_editor/selection.h>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
-#include <pcl/apps/point_cloud_editor/common.h>
-#include <pcl/apps/point_cloud_editor/copyBuffer.h>
+#include <cloud.h>
+#include <selection.h>
+#include <localTypes.h>
+#include <common.h>
+#include <copyBuffer.h>
 
 const float Cloud::DEFAULT_POINT_DISPLAY_SIZE_ = 2.0f;
 const float Cloud::DEFAULT_POINT_HIGHLIGHT_SIZE_ = 4.0f;

@@ -38,12 +38,12 @@
 /// @author Yue Li and Matthew Hielsberg
 
 #include <cmath>
-#include <pcl/apps/point_cloud_editor/selectionTransformTool.h>
-#include <pcl/apps/point_cloud_editor/cloud.h>
-#include <pcl/apps/point_cloud_editor/selection.h>
-#include <pcl/apps/point_cloud_editor/transformCommand.h>
-#include <pcl/apps/point_cloud_editor/commandQueue.h>
-#include <pcl/apps/point_cloud_editor/common.h>
+#include <selectionTransformTool.h>
+#include <cloud.h>
+#include <selection.h>
+#include <transformCommand.h>
+#include <commandQueue.h>
+#include <common.h>
 
 const float SelectionTransformTool::DEFAULT_TRANSLATE_FACTOR_ = 0.001;
 

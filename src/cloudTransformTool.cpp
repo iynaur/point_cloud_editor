@@ -39,9 +39,9 @@
 
 #include <algorithm>
 #include <cmath>
-#include <pcl/apps/point_cloud_editor/common.h>
-#include <pcl/apps/point_cloud_editor/cloudTransformTool.h>
-#include <pcl/apps/point_cloud_editor/cloud.h>
+#include <common.h>
+#include <cloudTransformTool.h>
+#include <cloud.h>
 
 const float CloudTransformTool::DEFAULT_SCALE_FACTOR_ = 1.14;
 const float CloudTransformTool::DEFAULT_TRANSLATE_FACTOR_ = 0.001f;

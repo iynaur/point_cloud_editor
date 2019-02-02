@@ -38,9 +38,9 @@
 /// @author Yue Li and Matthew Hielsberg
 
 #include <algorithm>
-#include <pcl/apps/point_cloud_editor/mainWindow.h>
-#include <pcl/apps/point_cloud_editor/cloudEditorWidget.h>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
+#include <mainWindow.h>
+#include <cloudEditorWidget.h>
+#include <localTypes.h>
 
 MainWindow::MainWindow () :
   window_width_(WINDOW_WIDTH), window_height_(WINDOW_HEIGHT)

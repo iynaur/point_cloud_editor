@@ -39,10 +39,10 @@
 
 #include <algorithm>
 #include <qgl.h>
-#include <pcl/apps/point_cloud_editor/select1DTool.h>
-#include <pcl/apps/point_cloud_editor/cloud.h>
-#include <pcl/apps/point_cloud_editor/selection.h>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
+#include <select1DTool.h>
+#include <cloud.h>
+#include <selection.h>
+#include <localTypes.h>
 
 Select1DTool::Select1DTool (SelectionPtr selection_ptr, CloudPtr cloud_ptr)
   : selection_ptr_(selection_ptr), cloud_ptr_(cloud_ptr)

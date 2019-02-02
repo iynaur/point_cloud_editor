@@ -33,83 +33,76 @@
 /// University of South Carolina, Interdisciplinary Mathematics Institute.
 ///
 
-/// @file   transformCommand.h
-/// @details a TransformCommand object provides transformation and undo
-/// functionalities.  // XXX - transformation of what?
+/// @file   select1DTool.h
+/// @details Tool for selecting and deselecting individual points in the cloud.
 /// @author  Yue Li and Matthew Hielsberg
 
 #pragma once
 
-#include <pcl/apps/point_cloud_editor/command.h>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
-#include <pcl/apps/point_cloud_editor/cloud.h>
+#include <toolInterface.h>
+#include <localTypes.h>
 
-class TransformCommand : public Command
+class Select1DTool : public ToolInterface
 {
   public:
     /// @brief Constructor
     /// @param selection_ptr a shared pointer pointing to the selection object.
     /// @param cloud_ptr a shared pointer pointing to the cloud object.
-    /// @param matrix a (4x4) transform matrix following OpenGL's format.
-    /// @pre Assumes the selection_ptr is valid, non-NULL.
-    TransformCommand (ConstSelectionPtr selection_ptr, CloudPtr cloud_ptr,
-                      const float* matrix, float translate_x,
-                      float translate_y, float translate_z);
-  
+    Select1DTool (SelectionPtr selection_ptr, CloudPtr cloud_ptr);
+
     /// @brief Destructor
-    ~TransformCommand ()
+    ~Select1DTool ()
+    {
+    }
+  
+    /// @brief Does nothing for 1D selection.
+    /// @sa end
+    void
+    start (int, int, BitMask, BitMask) override
+    {
+    }
+  
+    /// @brief Does nothing for 1D selection.
+    /// @sa end
+    void
+    update (int, int, BitMask, BitMask) override
     {
     }
 
-  protected:
-    // Transforms the coorindates of the selected points according to the transform
-    // matrix.
+    /// @brief Select or deselect the point under the mouse using GL's selection
+    /// facility.
+    /// @details If shift is pressed when the selection is made, the selected
+    /// point is appended to the existing selection. If instead ctrl is pressed,
+    /// the selected point will be removed from the existing selection.  If
+    /// neither shift nor ctrl is pressed when the selection is made then the
+    /// selected point, if any, will replace any current selection. Note that
+    /// the ctrl key may be evaluated as the command key in OSX.
+    /// @param x the x value of the mouse screen coordinates.
+    /// @param y the y value of the mouse screen coordinates.
+    /// @param modifiers the key modifier. SHIFT adds selected points to the
+    /// selection.  CTRL removes points and if neither are pressed then a new
+    /// selection is made.
+    /// @param buttons The state of the mouse buttons.  All interaction with
+    /// this tool requires the LEFT mouse button.  All others are ignored.
     void
-    execute () override;
+    end (int x, int y, BitMask modifiers, BitMask buttons) override;
 
-    // Restore the coordinates of the transformed points.
+    /// @brief This function does nothing.
     void
-    undo () override;
+    draw () const override
+    {
+    }
 
   private:
-    /// @brief Copy constructor  - object is not copy-constructable
-    TransformCommand (const TransformCommand&)
+    /// @brief Default constructor - object is not default constructable
+    Select1DTool()
     {
+      assert(false);
     }
 
-    /// @brief Equal operator - object is non-copyable
-    TransformCommand&
-    operator= (const TransformCommand&)
-    {
-      assert(false); return (*this);
-    }
+    /// a shared pointer pointing to the selection object
+    SelectionPtr selection_ptr_;
 
-    /// @brief Applies the transformation to the point values
-    /// @param sel_ptr A pointer to the selection object whose points are to be
-    /// transformed.
-    void
-    applyTransform(ConstSelectionPtr sel_ptr);
-
-    /// pointers to constructor params
-    ConstSelectionPtr selection_ptr_;
-
-    /// a pointer poiting to the cloud
+    /// a shared pointer pointing to the cloud object
     CloudPtr cloud_ptr_;
-
-    float translate_x_, translate_y_, translate_z_;
-
-    /// An internal selection object used to perform undo
-    SelectionPtr internal_selection_ptr_;
-
-    /// the transform matrix to be used to compute the new coordinates
-    /// of the selected points
-    float transform_matrix_[MATRIX_SIZE];
-
-    /// The transform matrix of the cloud used by this command
-    float cloud_matrix_[MATRIX_SIZE];
-    /// The inverted transform matrix of the cloud used by this command
-    float cloud_matrix_inv_[MATRIX_SIZE];
-
-    /// The center of the cloud used by this command
-    float cloud_center_[XYZ_SIZE];
 };

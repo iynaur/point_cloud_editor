@@ -39,9 +39,9 @@
 
 #pragma once
 
-#include <pcl/apps/point_cloud_editor/toolInterface.h>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
-#include <pcl/apps/point_cloud_editor/trackball.h>
+#include <toolInterface.h>
+#include <localTypes.h>
+#include <trackball.h>
 
 /// @brief The selection transform tool computes the transform matrix from
 /// mouse input.  It then updates the cloud's transform matrix for the

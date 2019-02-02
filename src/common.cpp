@@ -39,8 +39,8 @@
 /// @author Yue Li and Matthew Hielsberg
 ///
 
-#include <pcl/apps/point_cloud_editor/common.h>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
+#include <common.h>
+#include <localTypes.h>
 
 void
 setIdentity(float* matrix)

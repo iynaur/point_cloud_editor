@@ -38,7 +38,7 @@
 /// to PCL's denoising filter.
 /// @author  Yue Li and Matthew Hielsberg
 
-#include <pcl/apps/point_cloud_editor/denoiseParameterForm.h>
+#include <denoiseParameterForm.h>
 
 DenoiseParameterForm::DenoiseParameterForm () : ok_(false)
 {

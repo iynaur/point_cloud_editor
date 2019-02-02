@@ -41,7 +41,7 @@
 
 #pragma once
 
-#include <pcl/apps/point_cloud_editor/localTypes.h>
+#include <localTypes.h>
 
 /// @brief the parent class of all the select and the transform tool classes
 class ToolInterface

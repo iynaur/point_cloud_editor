@@ -32,45 +32,47 @@
 /// The following software was written as part of a collaboration with the
 /// University of South Carolina, Interdisciplinary Mathematics Institute.
 ///
-
-/// @file trackball.h
-/// @details Generic object for generating rotations given mouse input.  This
-/// class has been based on 
-/// @author Matthew Hielsberg
+///
+/// @file   statisticsDialog.h
+/// @details the class representing the dialog which accepts the parameters
+/// to PCL's denoising filter.
+/// @author  Yue Li and Matthew Hielsberg
 
 #pragma once
 
-#include <boost/math/quaternion.hpp>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
+#include <QLineEdit>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QVBoxLayout>
+#include <QLineEdit>
+#include <QLabel>
+#include <QTimer>
+#include <statistics.h>
 
-class TrackBall
+class StatisticsDialog : public QDialog
 {
+  Q_OBJECT
+
   public:
-    TrackBall();
-    TrackBall(const TrackBall &copy);
-    ~TrackBall();
+    /// @brief Default Constructor
+    StatisticsDialog(QWidget *parent = 0);
+    /// @brief Destructor
+    ~StatisticsDialog ();
     
-    TrackBall& operator=(const TrackBall &rhs);
+  public Q_SLOTS:
+    /// @brief update the dialog box.
+    void update ();
     
-    void start(int s_x, int s_y);
-    
-    void update(int s_x, int s_y);
-    
-    void getRotationMatrix(float (&rot)[MATRIX_SIZE]);
-    
-    void reset();
+  private Q_SLOTS:
+    void accept () override;
     
   private:
-    
-    void getPointFromScreenPoint(int s_x, int s_y, float &x, float &y, float &z);
+    /// The button box.
+    QDialogButtonBox *button_box_;
 
-    /// the quaternion representing the current orientation of the trackball
-    boost::math::quaternion<float> quat_;
-    
-    /// the original mouse screen coordinates converted to a 3d point
-    float origin_x_, origin_y_, origin_z_;
-    
-    /// the radius of the trackball squared
-    float radius_sqr_;
-        
-}; // class TrackBall
+    QLabel *stat_label_;
+
+    /// A timer used for periodically update the statistics in the dialog.
+    QTimer timer_;
+};

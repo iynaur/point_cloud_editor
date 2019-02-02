@@ -42,7 +42,7 @@
 #pragma once
 
 #include <deque>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
+#include <localTypes.h>
 
 /// @brief A structure for managing commands
 /// @details A command queue object provides a dequeue of commands as well as

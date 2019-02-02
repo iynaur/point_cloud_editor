@@ -38,9 +38,9 @@
 /// @author  Yue Li and Matthew Hielsberg
 
 #include <algorithm>
-#include <pcl/apps/point_cloud_editor/transformCommand.h>
-#include <pcl/apps/point_cloud_editor/selection.h>
-#include <pcl/apps/point_cloud_editor/common.h>
+#include <transformCommand.h>
+#include <selection.h>
+#include <common.h>
 
 TransformCommand::TransformCommand(ConstSelectionPtr selection_ptr,
                                    CloudPtr cloud_ptr,

@@ -33,74 +33,83 @@
 /// University of South Carolina, Interdisciplinary Mathematics Institute.
 ///
 
-/// @file   pasteCommand.h
-/// @details A PasteCommand object that allows the duplication of selected
-/// points in a cloud object as well as undo.
+/// @file   transformCommand.h
+/// @details a TransformCommand object provides transformation and undo
+/// functionalities.  // XXX - transformation of what?
 /// @author  Yue Li and Matthew Hielsberg
 
 #pragma once
 
-#include <pcl/apps/point_cloud_editor/command.h>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
+#include <command.h>
+#include <localTypes.h>
+#include <cloud.h>
 
-class PasteCommand : public Command
+class TransformCommand : public Command
 {
   public:
     /// @brief Constructor
-    /// @param copy_buffer_ptr a shared pointer pointing to the copy buffer.
     /// @param selection_ptr a shared pointer pointing to the selection object.
     /// @param cloud_ptr a shared pointer pointing to the cloud object.
-    PasteCommand (ConstCopyBufferPtr copy_buffer_ptr,
-                  SelectionPtr selection_ptr, CloudPtr cloud_ptr);
-    // comment that the selection is updated (also resets the matrix in cloud)
-
+    /// @param matrix a (4x4) transform matrix following OpenGL's format.
+    /// @pre Assumes the selection_ptr is valid, non-NULL.
+    TransformCommand (ConstSelectionPtr selection_ptr, CloudPtr cloud_ptr,
+                      const float* matrix, float translate_x,
+                      float translate_y, float translate_z);
+  
     /// @brief Destructor
-    ~PasteCommand ()
+    ~TransformCommand ()
     {
     }
-  
+
   protected:
-    /// @brief Appends the points in the copy buffer into the cloud.
-    /// @details After appending the points to the cloud, this function also
-    /// updates the selection object to point to the newly pasted points.  This
-    /// also updates the selection object to point to the newly pasted points.
+    // Transforms the coorindates of the selected points according to the transform
+    // matrix.
     void
     execute () override;
 
-    /// @brief Removes the points that were pasted to the cloud.
+    // Restore the coordinates of the transformed points.
     void
     undo () override;
 
   private:
-    /// @brief Default constructor - object is not default constructable
-    PasteCommand ()
+    /// @brief Copy constructor  - object is not copy-constructable
+    TransformCommand (const TransformCommand&)
     {
-    }
-    
-    /// @brief Copy constructor - commands are non-copyable
-    PasteCommand (const PasteCommand&)
-    {
-      assert(false);
     }
 
-    /// @brief Equal operator - commands are non-copyable
-    PasteCommand&
-    operator= (const PasteCommand&)
+    /// @brief Equal operator - object is non-copyable
+    TransformCommand&
+    operator= (const TransformCommand&)
     {
       assert(false); return (*this);
     }
 
-    /// a pointer pointing to the copy buffer.
-    ConstCopyBufferPtr copy_buffer_ptr_;
+    /// @brief Applies the transformation to the point values
+    /// @param sel_ptr A pointer to the selection object whose points are to be
+    /// transformed.
+    void
+    applyTransform(ConstSelectionPtr sel_ptr);
 
-    /// A shared pointer pointing to the selection object.
-    SelectionPtr selection_ptr_;
+    /// pointers to constructor params
+    ConstSelectionPtr selection_ptr_;
 
-    /// a pointer pointing to the cloud
+    /// a pointer poiting to the cloud
     CloudPtr cloud_ptr_;
 
-    /// The size of the cloud before new points are pasted. This value is used
-    /// to mark the point where points were added to the cloud. In order to
-    /// support undo, one only has to resize the cloud using this value.
-    unsigned int prev_cloud_size_;
+    float translate_x_, translate_y_, translate_z_;
+
+    /// An internal selection object used to perform undo
+    SelectionPtr internal_selection_ptr_;
+
+    /// the transform matrix to be used to compute the new coordinates
+    /// of the selected points
+    float transform_matrix_[MATRIX_SIZE];
+
+    /// The transform matrix of the cloud used by this command
+    float cloud_matrix_[MATRIX_SIZE];
+    /// The inverted transform matrix of the cloud used by this command
+    float cloud_matrix_inv_[MATRIX_SIZE];
+
+    /// The center of the cloud used by this command
+    float cloud_center_[XYZ_SIZE];
 };

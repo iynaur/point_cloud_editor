@@ -41,8 +41,8 @@
 #pragma once
 
 #include <set>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
-#include <pcl/apps/point_cloud_editor/statistics.h>
+#include <localTypes.h>
+#include <statistics.h>
 
 /// @brief This class serves as a sort of mask for performing operations on a
 /// point cloud.  It keeps track of the indices of identified/selected points

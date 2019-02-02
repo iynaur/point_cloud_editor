@@ -32,47 +32,45 @@
 /// The following software was written as part of a collaboration with the
 /// University of South Carolina, Interdisciplinary Mathematics Institute.
 ///
-///
-/// @file   statisticsDialog.h
-/// @details the class representing the dialog which accepts the parameters
-/// to PCL's denoising filter.
-/// @author  Yue Li and Matthew Hielsberg
+
+/// @file trackball.h
+/// @details Generic object for generating rotations given mouse input.  This
+/// class has been based on 
+/// @author Matthew Hielsberg
 
 #pragma once
 
-#include <QLineEdit>
-#include <QDialog>
-#include <QDialogButtonBox>
-#include <QFormLayout>
-#include <QVBoxLayout>
-#include <QLineEdit>
-#include <QLabel>
-#include <QTimer>
-#include <pcl/apps/point_cloud_editor/statistics.h>
+#include <boost/math/quaternion.hpp>
+#include <localTypes.h>
 
-class StatisticsDialog : public QDialog
+class TrackBall
 {
-  Q_OBJECT
-
   public:
-    /// @brief Default Constructor
-    StatisticsDialog(QWidget *parent = 0);
-    /// @brief Destructor
-    ~StatisticsDialog ();
+    TrackBall();
+    TrackBall(const TrackBall &copy);
+    ~TrackBall();
     
-  public Q_SLOTS:
-    /// @brief update the dialog box.
-    void update ();
+    TrackBall& operator=(const TrackBall &rhs);
     
-  private Q_SLOTS:
-    void accept () override;
+    void start(int s_x, int s_y);
+    
+    void update(int s_x, int s_y);
+    
+    void getRotationMatrix(float (&rot)[MATRIX_SIZE]);
+    
+    void reset();
     
   private:
-    /// The button box.
-    QDialogButtonBox *button_box_;
+    
+    void getPointFromScreenPoint(int s_x, int s_y, float &x, float &y, float &z);
 
-    QLabel *stat_label_;
-
-    /// A timer used for periodically update the statistics in the dialog.
-    QTimer timer_;
-};
+    /// the quaternion representing the current orientation of the trackball
+    boost::math::quaternion<float> quat_;
+    
+    /// the original mouse screen coordinates converted to a 3d point
+    float origin_x_, origin_y_, origin_z_;
+    
+    /// the radius of the trackball squared
+    float radius_sqr_;
+        
+}; // class TrackBall

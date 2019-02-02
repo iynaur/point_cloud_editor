@@ -38,9 +38,9 @@
 /// @details implementation of the class DeleteCommand
 /// @author  Yue Li and Matthew Hielsberg
 
-#include <pcl/apps/point_cloud_editor/deleteCommand.h>
-#include <pcl/apps/point_cloud_editor/copyBuffer.h>
-#include <pcl/apps/point_cloud_editor/selection.h>
+#include <deleteCommand.h>
+#include <copyBuffer.h>
+#include <selection.h>
 
 DeleteCommand::DeleteCommand (SelectionPtr selection_ptr,
                               CloudPtr cloud_ptr)

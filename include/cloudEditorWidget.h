@@ -42,12 +42,12 @@
 
 #include <QGLWidget>
 #include <boost/function.hpp>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
-#include <pcl/apps/point_cloud_editor/common.h>
-#include <pcl/apps/point_cloud_editor/commandQueue.h>
-#include <pcl/apps/point_cloud_editor/denoiseParameterForm.h>
-#include <pcl/apps/point_cloud_editor/statisticsDialog.h>
-#include <pcl/apps/point_cloud_editor/toolInterface.h>
+#include <localTypes.h>
+#include <common.h>
+#include <commandQueue.h>
+#include <denoiseParameterForm.h>
+#include <statisticsDialog.h>
+#include <toolInterface.h>
 
 /// @brief class declaration for the widget for editing and viewing
 /// point clouds.

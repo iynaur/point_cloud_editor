@@ -40,9 +40,9 @@
 #include <pcl/PointIndices.h>
 #include <pcl/point_types.h>
 #include <pcl/filters/statistical_outlier_removal.h>
-#include <pcl/apps/point_cloud_editor/denoiseCommand.h>
-#include <pcl/apps/point_cloud_editor/selection.h>
-#include <pcl/apps/point_cloud_editor/cloud.h>
+#include <denoiseCommand.h>
+#include <selection.h>
+#include <cloud.h>
 
 void
 DenoiseCommand::execute ()

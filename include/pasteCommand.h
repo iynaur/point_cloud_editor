@@ -33,71 +33,74 @@
 /// University of South Carolina, Interdisciplinary Mathematics Institute.
 ///
 
-/// @file   deleteCommand.h
-/// @details A Delete object provides the functionality for removing points
-/// from the cloud as well as the ability to undo the removal.
+/// @file   pasteCommand.h
+/// @details A PasteCommand object that allows the duplication of selected
+/// points in a cloud object as well as undo.
 /// @author  Yue Li and Matthew Hielsberg
 
 #pragma once
 
-#include <pcl/apps/point_cloud_editor/command.h>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
-#include <pcl/apps/point_cloud_editor/copyBuffer.h>
-#include <pcl/apps/point_cloud_editor/selection.h>
+#include <command.h>
+#include <localTypes.h>
 
-class DeleteCommand : public Command
+class PasteCommand : public Command
 {
   public:
     /// @brief Constructor
-    /// @param selection_ptr A shared pointer pointing to the selection object.
-    /// @param cloud_ptr A shared pointer pointing to the cloud object.
-    DeleteCommand (SelectionPtr selection_ptr, CloudPtr cloud_ptr);
-   
+    /// @param copy_buffer_ptr a shared pointer pointing to the copy buffer.
+    /// @param selection_ptr a shared pointer pointing to the selection object.
+    /// @param cloud_ptr a shared pointer pointing to the cloud object.
+    PasteCommand (ConstCopyBufferPtr copy_buffer_ptr,
+                  SelectionPtr selection_ptr, CloudPtr cloud_ptr);
+    // comment that the selection is updated (also resets the matrix in cloud)
+
     /// @brief Destructor
-    ~DeleteCommand ()
+    ~PasteCommand ()
     {
     }
-    
+  
   protected:
-    /// @brief Removes the selected points and maintains a backup for undo.
-    void 
+    /// @brief Appends the points in the copy buffer into the cloud.
+    /// @details After appending the points to the cloud, this function also
+    /// updates the selection object to point to the newly pasted points.  This
+    /// also updates the selection object to point to the newly pasted points.
+    void
     execute () override;
-    
-    /// @brief Returns the deleted points to the cloud, Order is not preserved.
-    void 
+
+    /// @brief Removes the points that were pasted to the cloud.
+    void
     undo () override;
 
   private:
     /// @brief Default constructor - object is not default constructable
-    DeleteCommand ():  deleted_selection_(CloudPtr())
+    PasteCommand ()
     {
-      assert(false);
     }
     
     /// @brief Copy constructor - commands are non-copyable
-    DeleteCommand (const DeleteCommand& c)
-      : deleted_selection_(c.deleted_selection_)
+    PasteCommand (const PasteCommand&)
     {
       assert(false);
     }
 
     /// @brief Equal operator - commands are non-copyable
-    DeleteCommand&
-    operator= (const DeleteCommand&)
+    PasteCommand&
+    operator= (const PasteCommand&)
     {
       assert(false); return (*this);
     }
 
-    /// a pointer pointing to the cloud
-    CloudPtr cloud_ptr_;
+    /// a pointer pointing to the copy buffer.
+    ConstCopyBufferPtr copy_buffer_ptr_;
 
     /// A shared pointer pointing to the selection object.
     SelectionPtr selection_ptr_;
 
-    /// a selection which backs up the index of the deleted points in the
-    /// original cloud.
-    Selection deleted_selection_;
+    /// a pointer pointing to the cloud
+    CloudPtr cloud_ptr_;
 
-    /// a copy buffer which backs up the points deleted from the cloud.
-    CopyBuffer deleted_cloud_buffer_;
+    /// The size of the cloud before new points are pasted. This value is used
+    /// to mark the point where points were added to the cloud. In order to
+    /// support undo, one only has to resize the cloud using this value.
+    unsigned int prev_cloud_size_;
 };

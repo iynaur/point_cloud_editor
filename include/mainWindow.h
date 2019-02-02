@@ -51,7 +51,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QToolBar>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
+#include <localTypes.h>
 
 // Forward declaration to prevent circular inclusion
 class CloudEditorWidget;

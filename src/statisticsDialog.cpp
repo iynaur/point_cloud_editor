@@ -38,7 +38,7 @@
 /// to PCL's denoising filter.
 /// @author  Yue Li and Matthew Hielsberg
 
-#include <pcl/apps/point_cloud_editor/statisticsDialog.h>
+#include <statisticsDialog.h>
 
 StatisticsDialog::StatisticsDialog(QWidget *)
 {

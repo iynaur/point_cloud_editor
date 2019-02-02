@@ -33,83 +33,63 @@
 /// University of South Carolina, Interdisciplinary Mathematics Institute.
 ///
 
-/// @file copyCommand.h
-/// @details A CopyCommand object provides functionality for filling the copy
-/// buffer with the current selection.  The
+/// @file statistics.h
+/// @details The statistics of the current editing. These statistics will be
+/// displayed in a pop-up dialog.
 /// @author Yue Li and Matthew Hielsberg
 
 #pragma once
 
-#include <pcl/apps/point_cloud_editor/command.h>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
-#include <pcl/apps/point_cloud_editor/copyBuffer.h>
+#include <vector>
+#include <string>
+#include <localTypes.h>
 
-class CopyCommand : public Command
+class Statistics
 {
   public:
-    /// @brief Constructor
-    /// @param copy_buffer_ptr a shared pointer pointing to the copy buffer.
-    /// @param selection_ptr a shared pointer pointing to the selection object.
-    /// @param cloud_ptr a shared pointer pointing to the cloud object.
-    CopyCommand (CopyBufferPtr copy_buffer_ptr,
-                 ConstSelectionPtr selection_ptr,
-                 ConstCloudPtr cloud_ptr)
-      : copy_buffer_ptr_(copy_buffer_ptr), selection_ptr_(selection_ptr),
-        cloud_ptr_(cloud_ptr)
-    {
-      has_undo_ = false;
-    }
-
     /// @brief Destructor
-    ~CopyCommand ()
+    virtual ~Statistics ()
     {
     }
-  
+
+    /// @brief Returns the strings of the statistics.
+    static
+    std::string
+    getStats();
+    
+    static
+    void
+    clear();
+    
   protected:
-    /// @brief Copy the selected points into the copy buffer.
-    /// @pre Assumes the constructor was given appropriate pointers to the
-    /// required objects.
-    void
-    execute () override
+    /// @brief The default constructor.
+    Statistics ()
     {
-      if (!cloud_ptr_)
-        return;
-      copy_buffer_ptr_ -> set(cloud_ptr_, *selection_ptr_);
     }
 
-    /// @brief undo is not supported for this command.
-    void
-    undo () override
+    /// @brief Copy Constructor
+    Statistics (const Statistics&)
     {
-      assert(false);
+      assert(false); 
     }
 
-  private:
-    /// @brief Default constructor - object is not default constructable
-    CopyCommand ()
-    {
-      assert(false);
-    }
-
-    /// @brief Copy constructor - commands are non-copyable
-    CopyCommand (const CopyCommand&)
-    {
-      assert(false);
-    }
-
-    /// @brief Equal operator - commands are non-copyable
-    CopyCommand&
-    operator= (const CopyCommand&)
+    /// @brief Equal Operator
+    virtual
+    Statistics&
+    operator= (const Statistics&)
     {
       assert(false); return (*this);
     }
 
-    /// a pointer to the copy buffer.
-    CopyBufferPtr copy_buffer_ptr_;
+    /// @brief Returns the statistics in string.
+    virtual
+    std::string
+    getStat () const = 0;
 
-    /// a shared pointer pointing to the selection
-    ConstSelectionPtr selection_ptr_;
-
-    /// a shared pointer pointing to the cloud
-    ConstCloudPtr cloud_ptr_;
+    /// @brief Register a statistics
+    void
+    registerStats ();
+    
+  private:
+    static std::vector<Statistics*> stat_vec_;
 };

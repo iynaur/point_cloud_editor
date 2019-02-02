@@ -42,10 +42,10 @@
 
 #pragma once
 
-#include <pcl/apps/point_cloud_editor/command.h>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
-#include <pcl/apps/point_cloud_editor/selection.h>
-#include <pcl/apps/point_cloud_editor/copyBuffer.h>
+#include <command.h>
+#include <localTypes.h>
+#include <selection.h>
+#include <copyBuffer.h>
 
 class DenoiseCommand : public Command
 {

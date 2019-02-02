@@ -33,63 +33,70 @@
 /// University of South Carolina, Interdisciplinary Mathematics Institute.
 ///
 
-/// @file statistics.h
-/// @details The statistics of the current editing. These statistics will be
-/// displayed in a pop-up dialog.
+/// @file command.h
+/// @details The abstract parent class for each class implementing a specific
+/// command of the cloud editor.  This class is designed to be used with the
+/// CommandQueue.
 /// @author Yue Li and Matthew Hielsberg
 
 #pragma once
 
-#include <vector>
-#include <string>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
+#include <localTypes.h>
 
-class Statistics
+/// @brief The abstract parent class of all the command classes. Commands are
+/// non-copyable.
+class Command
 {
   public:
     /// @brief Destructor
-    virtual ~Statistics ()
+    virtual ~Command ()
     {
     }
 
-    /// @brief Returns the strings of the statistics.
-    static
-    std::string
-    getStats();
-    
-    static
-    void
-    clear();
-    
   protected:
+    /// Allows command queues to be the only objects which are able to execute
+    /// commands.
+    friend class CommandQueue;
+
     /// @brief The default constructor.
-    Statistics ()
+    /// @details Derived commands are assumed to have undo by default.  Each
+    /// is free to override this.
+    Command () : has_undo_(true)
     {
     }
 
-    /// @brief Copy Constructor
-    Statistics (const Statistics&)
+    /// @brief Returns true if the command has an undo function.
+    inline
+    bool
+    hasUndo () const
     {
-      assert(false); 
+      return (has_undo_);
     }
 
-    /// @brief Equal Operator
+    /// @brief Executes the command.
     virtual
-    Statistics&
-    operator= (const Statistics&)
+    void
+    execute () = 0;
+
+    /// @brief Undos the command.
+    virtual
+    void
+    undo () = 0;
+
+    /// @brief a flag indicates whether the command has an undo function.
+    bool has_undo_;
+
+  private:
+    /// @brief Copy Constructor - object is non-copyable
+    Command (const Command&)
+    {
+      assert(false);
+    }
+
+    /// @brief Equal Operator - object is non-copyable
+    Command&
+    operator= (const Command&)
     {
       assert(false); return (*this);
     }
-
-    /// @brief Returns the statistics in string.
-    virtual
-    std::string
-    getStat () const = 0;
-
-    /// @brief Register a statistics
-    void
-    registerStats ();
-    
-  private:
-    static std::vector<Statistics*> stat_vec_;
 };

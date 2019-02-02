@@ -33,57 +33,71 @@
 /// University of South Carolina, Interdisciplinary Mathematics Institute.
 ///
 
-///
-/// @file   cutCommand.cpp
-/// @details the implementation of the class CutCommand
+/// @file   deleteCommand.h
+/// @details A Delete object provides the functionality for removing points
+/// from the cloud as well as the ability to undo the removal.
 /// @author  Yue Li and Matthew Hielsberg
 
-#include <cutCommand.h>
+#pragma once
+
+#include <command.h>
+#include <localTypes.h>
 #include <copyBuffer.h>
 #include <selection.h>
 
-CutCommand::CutCommand (CopyBufferPtr copy_buffer_ptr,
-                        SelectionPtr selection_ptr,
-                        CloudPtr cloud_ptr)
-  : selection_ptr_(selection_ptr), cloud_ptr_(cloud_ptr),
-    copy_buffer_ptr_(copy_buffer_ptr), cut_selection_(cloud_ptr)
+class DeleteCommand : public Command
 {
-}
+  public:
+    /// @brief Constructor
+    /// @param selection_ptr A shared pointer pointing to the selection object.
+    /// @param cloud_ptr A shared pointer pointing to the cloud object.
+    DeleteCommand (SelectionPtr selection_ptr, CloudPtr cloud_ptr);
+   
+    /// @brief Destructor
+    ~DeleteCommand ()
+    {
+    }
+    
+  protected:
+    /// @brief Removes the selected points and maintains a backup for undo.
+    void 
+    execute () override;
+    
+    /// @brief Returns the deleted points to the cloud, Order is not preserved.
+    void 
+    undo () override;
 
-CutCommand::~CutCommand ()
-{
-}
+  private:
+    /// @brief Default constructor - object is not default constructable
+    DeleteCommand ():  deleted_selection_(CloudPtr())
+    {
+      assert(false);
+    }
+    
+    /// @brief Copy constructor - commands are non-copyable
+    DeleteCommand (const DeleteCommand& c)
+      : deleted_selection_(c.deleted_selection_)
+    {
+      assert(false);
+    }
 
-void
-CutCommand::execute ()
-{
-  if (!cloud_ptr_)
-    return;
-  if (selection_ptr_->empty())
-    return;
+    /// @brief Equal operator - commands are non-copyable
+    DeleteCommand&
+    operator= (const DeleteCommand&)
+    {
+      assert(false); return (*this);
+    }
 
-  // do the copy
-  copy_buffer_ptr_ -> set(cloud_ptr_, *selection_ptr_);
+    /// a pointer pointing to the cloud
+    CloudPtr cloud_ptr_;
 
-  // back up copied points for undo
-  cut_cloud_buffer_ = *copy_buffer_ptr_;
-  cut_selection_ = *selection_ptr_;
+    /// A shared pointer pointing to the selection object.
+    SelectionPtr selection_ptr_;
 
-   // remove the copied points from the cloud.
-  cloud_ptr_ -> remove(cut_selection_);
+    /// a selection which backs up the index of the deleted points in the
+    /// original cloud.
+    Selection deleted_selection_;
 
-  // The selection points to the incorrect points or may have indices out of
-  // bounds, so we must clear it.
-  selection_ptr_ -> clear();
-
-  // notify the cloud that the selection has changed
-  cloud_ptr_ -> setSelection(selection_ptr_);
-}
-
-void
-CutCommand::undo()
-{
-  if (!cloud_ptr_)
-    return;
-  cloud_ptr_ -> restore(cut_cloud_buffer_, cut_selection_);
-}
+    /// a copy buffer which backs up the points deleted from the cloud.
+    CopyBuffer deleted_cloud_buffer_;
+};

@@ -41,8 +41,8 @@
 #pragma once
 
 #include <qgl.h>
-#include <pcl/apps/point_cloud_editor/toolInterface.h>
-#include <pcl/apps/point_cloud_editor/localTypes.h>
+#include <toolInterface.h>
+#include <localTypes.h>
 
 class Select2DTool : public ToolInterface
 {

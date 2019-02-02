@@ -40,8 +40,8 @@
 
 #include <algorithm>
 #include <limits>
-#include <pcl/apps/point_cloud_editor/common.h>
-#include <pcl/apps/point_cloud_editor/trackball.h>
+#include <common.h>
+#include <trackball.h>
 
 TrackBall::TrackBall() : quat_(1.0f), origin_x_(0), origin_y_(0), origin_z_(0)
 {

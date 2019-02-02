@@ -38,8 +38,8 @@
 /// details.
 /// @author  Yue Li and Matthew Hielsberg
 
-#include <pcl/apps/point_cloud_editor/commandQueue.h>
-#include <pcl/apps/point_cloud_editor/command.h>
+#include <commandQueue.h>
+#include <command.h>
 
 CommandQueue::CommandQueue () : depth_limit_(DEFAULT_MAX_SIZE_)
 {

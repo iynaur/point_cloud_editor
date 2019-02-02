@@ -40,8 +40,8 @@
 
 #pragma once
 
-#include <pcl/apps/point_cloud_editor/localTypes.h>
-#include <pcl/apps/point_cloud_editor/cloud.h>
+#include <localTypes.h>
+#include <cloud.h>
 
 /// @brief a buffer holding the points being copied and a set of operations for
 /// manipulating the buffer.

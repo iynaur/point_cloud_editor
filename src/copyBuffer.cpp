@@ -37,10 +37,10 @@
 /// @details implementation of the class CopyBuffer
 /// @author  Yue Li and Matthew Hielsberg
 
-#include <pcl/apps/point_cloud_editor/copyBuffer.h>
-#include <pcl/apps/point_cloud_editor/selection.h>
-#include <pcl/apps/point_cloud_editor/statistics.h>
-#include <pcl/apps/point_cloud_editor/common.h>
+#include <copyBuffer.h>
+#include <selection.h>
+#include <statistics.h>
+#include <common.h>
 
 CopyBuffer::CopyBuffer (const CopyBuffer& copy_buffer) :
   buffer_(copy_buffer.buffer_)

@@ -51,7 +51,7 @@
 ///
 
 #include <QApplication>
-#include <pcl/apps/point_cloud_editor/mainWindow.h>
+#include <mainWindow.h>
 
 int
 main(int argc, char *argv[])

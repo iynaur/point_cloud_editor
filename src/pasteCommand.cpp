@@ -38,10 +38,10 @@
 /// @details implementation of the class PasteCommand
 /// @author  Yue Li and Matthew Hielsberg
 
-#include <pcl/apps/point_cloud_editor/pasteCommand.h>
-#include <pcl/apps/point_cloud_editor/cloud.h>
-#include <pcl/apps/point_cloud_editor/copyBuffer.h>
-#include <pcl/apps/point_cloud_editor/selection.h>
+#include <pasteCommand.h>
+#include <cloud.h>
+#include <copyBuffer.h>
+#include <selection.h>
 
 PasteCommand::PasteCommand (ConstCopyBufferPtr copy_buffer_ptr,
                             SelectionPtr selection_ptr,

@@ -33,70 +33,83 @@
 /// University of South Carolina, Interdisciplinary Mathematics Institute.
 ///
 
-/// @file command.h
-/// @details The abstract parent class for each class implementing a specific
-/// command of the cloud editor.  This class is designed to be used with the
-/// CommandQueue.
+/// @file copyCommand.h
+/// @details A CopyCommand object provides functionality for filling the copy
+/// buffer with the current selection.  The
 /// @author Yue Li and Matthew Hielsberg
 
 #pragma once
 
-#include <pcl/apps/point_cloud_editor/localTypes.h>
+#include <command.h>
+#include <localTypes.h>
+#include <copyBuffer.h>
 
-/// @brief The abstract parent class of all the command classes. Commands are
-/// non-copyable.
-class Command
+class CopyCommand : public Command
 {
   public:
+    /// @brief Constructor
+    /// @param copy_buffer_ptr a shared pointer pointing to the copy buffer.
+    /// @param selection_ptr a shared pointer pointing to the selection object.
+    /// @param cloud_ptr a shared pointer pointing to the cloud object.
+    CopyCommand (CopyBufferPtr copy_buffer_ptr,
+                 ConstSelectionPtr selection_ptr,
+                 ConstCloudPtr cloud_ptr)
+      : copy_buffer_ptr_(copy_buffer_ptr), selection_ptr_(selection_ptr),
+        cloud_ptr_(cloud_ptr)
+    {
+      has_undo_ = false;
+    }
+
     /// @brief Destructor
-    virtual ~Command ()
+    ~CopyCommand ()
     {
     }
-
+  
   protected:
-    /// Allows command queues to be the only objects which are able to execute
-    /// commands.
-    friend class CommandQueue;
-
-    /// @brief The default constructor.
-    /// @details Derived commands are assumed to have undo by default.  Each
-    /// is free to override this.
-    Command () : has_undo_(true)
+    /// @brief Copy the selected points into the copy buffer.
+    /// @pre Assumes the constructor was given appropriate pointers to the
+    /// required objects.
+    void
+    execute () override
     {
+      if (!cloud_ptr_)
+        return;
+      copy_buffer_ptr_ -> set(cloud_ptr_, *selection_ptr_);
     }
 
-    /// @brief Returns true if the command has an undo function.
-    inline
-    bool
-    hasUndo () const
-    {
-      return (has_undo_);
-    }
-
-    /// @brief Executes the command.
-    virtual
+    /// @brief undo is not supported for this command.
     void
-    execute () = 0;
-
-    /// @brief Undos the command.
-    virtual
-    void
-    undo () = 0;
-
-    /// @brief a flag indicates whether the command has an undo function.
-    bool has_undo_;
-
-  private:
-    /// @brief Copy Constructor - object is non-copyable
-    Command (const Command&)
+    undo () override
     {
       assert(false);
     }
 
-    /// @brief Equal Operator - object is non-copyable
-    Command&
-    operator= (const Command&)
+  private:
+    /// @brief Default constructor - object is not default constructable
+    CopyCommand ()
+    {
+      assert(false);
+    }
+
+    /// @brief Copy constructor - commands are non-copyable
+    CopyCommand (const CopyCommand&)
+    {
+      assert(false);
+    }
+
+    /// @brief Equal operator - commands are non-copyable
+    CopyCommand&
+    operator= (const CopyCommand&)
     {
       assert(false); return (*this);
     }
+
+    /// a pointer to the copy buffer.
+    CopyBufferPtr copy_buffer_ptr_;
+
+    /// a shared pointer pointing to the selection
+    ConstSelectionPtr selection_ptr_;
+
+    /// a shared pointer pointing to the cloud
+    ConstCloudPtr cloud_ptr_;
 };
