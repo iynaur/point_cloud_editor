@@ -90,6 +90,7 @@ Select1DTool::end (int x, int y, BitMask modifiers, BitMask buttons)
   }
   glPopAttrib();
 
+  u.pixel[3] = 0;
   if (!u.id)
     return; // no selection - they did not hit a point
 
