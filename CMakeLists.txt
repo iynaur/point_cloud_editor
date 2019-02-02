@@ -107,6 +107,4 @@ include_directories (${PCL_INCLUDE_DIRS})
 link_directories    (${PCL_LIBRARY_DIRS})
 add_definitions     (${PCL_DEFINITIONS})
 
-# Add to the compound apps target
-list(APPEND PCL_APPS_ALL_TARGETS ${EXE_NAME})
-set(PCL_APPS_ALL_TARGETS ${PCL_APPS_ALL_TARGETS} PARENT_SCOPE)
+
