@@ -253,11 +253,26 @@ MainWindow::createActions ()
   show_stat_action_->setCheckable(false);
 }
 
+
+
+  bool KeyPressEater::eventFilter(QObject *obj, QEvent *event)
+  {
+      if (event->type() == QEvent::Close) {
+          qDebug("Close event");
+          return true;
+      } else {
+          // standard event processing
+          return QObject::eventFilter(obj, event);
+      }
+  }
+
+
 void
 MainWindow::createMenus ()
 {
   file_menu_ = new QMenu(tr("&File"), this);
   //file_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
+  file_menu_->installEventFilter(new KeyPressEater);
   file_menu_ -> addAction(open_action_);
   file_menu_ -> addSeparator();
   file_menu_ -> addAction(save_action_);

@@ -240,3 +240,11 @@ class MainWindow : public QMainWindow
     /// the slider used for adjusting moving speed.
      QSlider *move_speed_slider_;
 };
+
+class KeyPressEater : public QObject
+  {
+      Q_OBJECT
+
+  protected:
+      bool eventFilter(QObject *obj, QEvent *event);
+  };
