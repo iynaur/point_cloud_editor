@@ -257,7 +257,7 @@ void
 MainWindow::createMenus ()
 {
   file_menu_ = new QMenu(tr("&File"), this);
-  file_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
+  //file_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
   file_menu_ -> addAction(open_action_);
   file_menu_ -> addSeparator();
   file_menu_ -> addAction(save_action_);
@@ -265,7 +265,7 @@ MainWindow::createMenus ()
   file_menu_ -> addAction(exit_action_);
 
   edit_menu_ = new QMenu(tr("&Edit"), this);
-  edit_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
+  //edit_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
   edit_menu_ -> addAction(undo_action_);
   edit_menu_ -> addSeparator();
   edit_menu_ -> addAction(cut_action_);
@@ -276,26 +276,26 @@ MainWindow::createMenus ()
   edit_menu_ -> addAction(transform_action_);
 
   select_menu_ = new QMenu(tr("&Select"), this);
-  select_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
+  //select_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
   select_menu_ -> addAction(select_action_);
   select_menu_ -> addAction(select_2D_action_);
   //select_menu_ -> addAction(select_3D_action_);
 
   display_menu_ = new QMenu(tr("&Display"), this);
-  display_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
+  //display_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
   display_menu_ -> addAction(toggle_blend_action_);
 
   view_menu_ = new QMenu(tr("&View"), this);
-  view_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
+  //view_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
   view_menu_ -> addAction(view_action_);
   view_menu_ -> addAction(show_stat_action_);
 
   tool_menu_ = new QMenu(tr("&Algorithm"), this);
-  tool_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
+  //tool_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
   tool_menu_ -> addAction(denoise_action_);
 
   help_menu_ = new QMenu(tr("&Help"), this);
-  help_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
+  //help_menu_ -> setAttribute(Qt::WA_DeleteOnClose);
   help_menu_ -> addAction(about_action_);
   help_menu_ -> addAction(help_action_);
 

@@ -179,9 +179,9 @@ const unsigned int MATRIX_SIZE_DIM = 4;
 const unsigned int MATRIX_SIZE = MATRIX_SIZE_DIM * MATRIX_SIZE_DIM;
 
 /// The default window width
-const unsigned int WINDOW_WIDTH = 1200;
+const unsigned int WINDOW_WIDTH = 800;
 /// The default window height
-const unsigned int WINDOW_HEIGHT = 1000;
+const unsigned int WINDOW_HEIGHT = 600;
 
 /// The default z translation used to push the world origin in front of the
 /// display
