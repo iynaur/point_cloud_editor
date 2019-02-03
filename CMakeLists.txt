@@ -4,11 +4,6 @@ project(point_cloud_editor)
 
 add_definitions(-std=c++11)
 
-set(SUBSUBSYS_NAME point_cloud_editor)
-set(SUBSUBSYS_DESC "Point Cloud Editor - Simple editor for 3D point clouds")
-set(SUBSUBSYS_DEPS common filters io apps)
-
-# Find the QtWidgets library
 find_package(Qt5 COMPONENTS
              Core
              Widgets
@@ -16,15 +11,6 @@ find_package(Qt5 COMPONENTS
              OpenGL)
 
 find_package (PCL REQUIRED)
-
-# Find OpenGL
-if(NOT OPENGL_FOUND)
-  set(DEFAULT AUTO_OFF)
-  set(REASON "OpenGL was not found.")
-elseif(NOT ${DEFAULT} STREQUAL "AUTO_OFF")
-  set(DEFAULT TRUE)
-  set(REASON)
-endif()
 
 set(MOC_INCS
   "include/cloudEditorWidget.h"
