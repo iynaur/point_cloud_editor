@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.2)
 
 project(point_cloud_editor)
 
+add_definitions(-std=c++11)
+
 set(SUBSUBSYS_NAME point_cloud_editor)
 set(SUBSUBSYS_DESC "Point Cloud Editor - Simple editor for 3D point clouds")
 set(SUBSUBSYS_DEPS common filters io apps)
