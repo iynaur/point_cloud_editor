@@ -44,7 +44,6 @@
 #include <localTypes.h>
 #include <common.h>
 #include <copyBuffer.h>
-#include <pcl/io/pcd_io.h>
 
 const float Cloud::DEFAULT_POINT_DISPLAY_SIZE_ = 2.0f;
 const float Cloud::DEFAULT_POINT_HIGHLIGHT_SIZE_ = 4.0f;
@@ -232,7 +231,6 @@ Cloud::drawWithRGB () const
   glEnableClientState(GL_COLOR_ARRAY);
   glColorPointer(3, GL_UNSIGNED_BYTE, sizeof(Point3D),
                  &(cloud_.points[0].b));
-  pcl::io::savePCDFile("1.pcd", cloud_);
   draw();
 }
 

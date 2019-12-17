@@ -10,7 +10,7 @@ find_package(Qt5 COMPONENTS
              Gui
              OpenGL)
 
-find_package (PCL 1.7 REQUIRED)
+find_package (PCL REQUIRED)
 
 set(MOC_INCS
   "include/cloudEditorWidget.h"
