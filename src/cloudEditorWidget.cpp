@@ -531,13 +531,18 @@ void
 CloudEditorWidget::loadFilePCD(const std::string &filename)
 {   
   PclCloudPtr pcl_cloud_ptr;
-  Cloud3D tmp;
-  if (pcl::io::loadPCDFile<Point3D>(filename, tmp) == -1)
+  pcl::PointCloud<pcl::PointXYZRGB> tmp;
+  if (pcl::io::loadPCDFile(filename, tmp) == -1)
     throw;
-  pcl_cloud_ptr = PclCloudPtr(new Cloud3D(tmp));
+  pcl::io::savePCDFileBinary("tmp.pcd", tmp);
+  pcl_cloud_ptr = PclCloudPtr(new Cloud3D);
+  pcl::copyPointCloud(tmp, *pcl_cloud_ptr);
+  pcl::io::savePCDFileBinary("3.pcd", *pcl_cloud_ptr);
+
   std::vector<int> index;
   pcl::removeNaNFromPointCloud(*pcl_cloud_ptr, *pcl_cloud_ptr, index);
   Statistics::clear();
+  pcl::io::savePCDFileBinary("2.pcd", *pcl_cloud_ptr);
   cloud_ptr_ = CloudPtr(new Cloud(*pcl_cloud_ptr, true));
   selection_ptr_ = SelectionPtr(new Selection(cloud_ptr_, true));
   copy_buffer_ptr_ = CopyBufferPtr(new CopyBuffer(true));
